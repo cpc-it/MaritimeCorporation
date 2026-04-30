@@ -72,8 +72,21 @@ export default function Component(props) {
     '/images/og-default.jpg';
 
   const baseUrl = getSiteUrl();
+  let yoastCanonical;
+  try {
+    if (s?.canonical && baseUrl) {
+      const siteHost = new URL(baseUrl).host;
+      const canonicalUrl = new URL(s.canonical, baseUrl);
+      if (canonicalUrl.host === siteHost) {
+        yoastCanonical = canonicalUrl.toString();
+      }
+    }
+  } catch {
+    yoastCanonical = undefined;
+  }
+
   const computedCanonical =
-    s?.canonical ||
+    yoastCanonical ||
     (baseUrl && router?.asPath ? `${baseUrl}${router.asPath}` : undefined);
 
 
