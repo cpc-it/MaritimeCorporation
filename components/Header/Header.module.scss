@@ -4,14 +4,18 @@
   color: var(--color-white);
   background-color: #f8f8f7;
   transition: background-color 0.4s ease-in-out, transform 0.4s ease-in-out;
-  position: fixed;
+  position: sticky;
   top: 0;
   width: 100%;
   z-index: 9999999;
 
-  &.scrolled {
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-    height: 65px;
+  @media (min-width: $breakpoint-small) {
+    position: fixed;
+
+    &.scrolled {
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+      height: 65px;
+    }
   }
 }
 
@@ -20,10 +24,12 @@
   padding: .4rem 0;
   background-color: var(--color-primary);
 
-  &.scrolled {
-    transform: translateY(-20px);
-    opacity: 0;
-    pointer-events: none;
+  @media (min-width: $breakpoint-small) {
+    &.scrolled {
+      transform: translateY(-20px);
+      opacity: 0;
+      pointer-events: none;
+    }
   }
 }
 
@@ -32,11 +38,12 @@
 
   @media screen and (max-width: 767px) {
     background-color: var(--color-white);
-    
   }
 
-  &.scrolled {
-    transform: translateY(-55px);
+  @media (min-width: $breakpoint-small) {
+    &.scrolled {
+      transform: translateY(-55px);
+    }
   }
 }
 
@@ -46,6 +53,14 @@
   flex-wrap: wrap;
   padding: 0;
   gap: 2rem;
+
+  @media (max-width: 767px) {
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: nowrap;
+    gap: 1rem;
+    padding-block: 0.4rem;
+  }
 }
 
 .logo {
@@ -63,6 +78,13 @@
   text-decoration-color: $gold;
   transition: all 0.4s;
 
+  @media (max-width: 767px) {
+    min-width: 0;
+    font-size: clamp(2rem, 5vw, 2.8rem);
+    line-height: 1.15;
+    overflow-wrap: anywhere;
+  }
+
   &:hover {
     text-decoration: underline;
     text-decoration-color: $gold;
@@ -72,6 +94,9 @@
 .nav-toggle {
   display: flex;
   align-items: center;
+  justify-content: center;
+  flex: 0 0 4.4rem;
+  min-height: 4.4rem;
   margin: 0;
   padding: .5rem;
   background-color: transparent;
@@ -377,15 +402,26 @@
 
 @media (max-width: 767px) {
   .primary-navigation { display: none !important; } /* hide desktop menu */
-  .mobile-nav { display: block; width: 100%; }
+  .mobile-nav {
+    display: none;
+    position: absolute;
+    top: 100%;
+    inset-inline: 0;
+    max-height: 55vh;
+    max-height: 55dvh;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+
+    &.open {
+      display: block;
+    }
+  }
 
   .mobile-nav .mnav__wrap {
     background: #fff;
     border-top: 1px solid rgba(0,0,0,.06);
   }
-
-  .mobile-nav.open .mnav__wrap { display: block; }
-  .mobile-nav:not(.open) .mnav__wrap { display: none; } /* toggled by header button */
 
   .mnav__ul {
     list-style: none;

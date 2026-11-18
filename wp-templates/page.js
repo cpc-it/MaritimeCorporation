@@ -54,7 +54,8 @@ export default function Component(props) {
   const resources    = props?.data?.resourcesFooterMenuItems?.nodes ?? [];
 
   const page = props?.data?.page ?? { title: '' };
-  const { title, content, featuredImage, seo: s } = page;
+  const { title, uri, content, featuredImage, seo: s } = page;
+  const isBoardDirectory = uri?.replace(/\/$/, '') === '/board-of-directors';
 
   const htmlWithSlot = (content ?? '').split(TOKEN).join(SLOT_HTML);
 
@@ -114,7 +115,10 @@ export default function Component(props) {
         <>
           <EntryHeader title={title} image={featuredImage?.node} />
           <div className="container">
-            <ContentWrapper content={htmlWithSlot} />
+            <ContentWrapper
+              content={htmlWithSlot}
+              className={isBoardDirectory ? 'boardDirectory' : undefined}
+            />
             <ContactFormIntoSlot />
           </div>
         </>
@@ -162,6 +166,7 @@ Component.query = gql`
   ) {
     page(id: $databaseId, idType: DATABASE_ID, asPreview: $asPreview) {
       title
+      uri
       content
       ...FeaturedImageFragment
       seo {

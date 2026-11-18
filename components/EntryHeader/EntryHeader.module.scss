@@ -2,7 +2,9 @@
 
 .entry-header {
   color: var(--color-white);
-  margin-top: 110px;
+  @media (min-width: $breakpoint-small) {
+    margin-top: 110px;
+  }
 }
 
 .image {
@@ -31,8 +33,50 @@
   display: flex; 
   align-items: center;
   background-color: rgba(0,0,0,0.3);
-  @media screen and (max-width: 767px) {
-    bottom: 10px;
+}
+
+@media (max-width: 767px) {
+  .image {
+    display: grid;
+    min-height: clamp(22rem, 55vw, 31.5rem);
+
+    figure,
+    figure img {
+      min-height: 0;
+    }
+  }
+
+  .image .featured-image {
+    position: absolute;
+    inset: 0;
+
+    img {
+      display: block;
+      height: 100% !important; // Override Next Image's inline height: auto.
+    }
+  }
+
+  .overlay {
+    position: relative;
+    padding-block: 4rem;
+  }
+
+  .image .heading-home {
+    font-size: clamp(3.2rem, 11vw, 6rem);
+    overflow-wrap: anywhere;
+
+    &::before,
+    &::after {
+      width: min(45%, 20rem);
+    }
+
+    &::before {
+      top: -1.6rem;
+    }
+
+    &::after {
+      bottom: -1.6rem;
+    }
   }
 }
 

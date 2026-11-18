@@ -6,6 +6,8 @@ The navigation menu is sourced from the "Primary" menu location in WordPress. If
 
 The site logo is pulled from `/public/logo.png`.
 
+On mobile, the sticky header reserves its own space above the page content. The menu opens below the header in a scrollable panel without shifting the page.
+
 ## Usage
 
 ```jsx

@@ -1,3 +1,5 @@
+@import '../Variables';
+
 .search-header-text {
   text-align: center;
   color: var(--color-white);
@@ -11,7 +13,9 @@
   background-color: var(--color-primary);
   margin-bottom: 4rem;
   padding-bottom: 4rem;
-  padding-top: 155px; // Just in case there is any whitespace between elements.
+  @media (min-width: $breakpoint-small) {
+    padding-top: 155px;
+  }
 }
 
 .load-more {
